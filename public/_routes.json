@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "include": ["/*"],
+  "exclude": ["/assets/*", "/badges/*", "/reg_bgs/*", "/whiskyprocessimage/*"]
+}

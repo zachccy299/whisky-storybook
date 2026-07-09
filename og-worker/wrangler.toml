@@ -1,0 +1,6 @@
+name = "whisky-og-worker"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+# SUPABASE_ANON_KEY 透過 wrangler secret 設定，不寫在這裡

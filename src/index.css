@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Unified brand font (2026-07-09): Fraunces everywhere (was Inter body / Playfair Display headings).
+     Fraunces is a variable font with an optical-size axis (opsz 9..144) — the browser's default
+     font-optical-sizing:auto automatically uses a text-appropriate cut at body sizes and a display
+     cut at heading sizes from this one family, so long-form text (法規/測驗題目) stays readable. */
+  --font-sans: "Fraunces", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces", ui-serif, Georgia, serif;
+
+  /* Unified brand tokens (2026-07-09), shared with funnydistillery.com (Odoo) and the
+     customization platform — see project_funnydistillery_website_integration memory.
+     amber-500 = primary brand gold (nav/buttons/links, matches Odoo's --primary #B19E65).
+     amber-400 = secondary/accent gold (highlights, active states, hover — was #ffe46c, now
+     the storybook's original richer gold #ECC75A, kept as the "輔" accent per Zach's decision). */
+  --color-whisky-950: #16140d;
+  --color-whisky-900: #241a13;
+  --color-whisky-800: #36281e;
+  --color-amber-500: #b19e65;
+  --color-amber-600: #d4a51a;
+  --color-amber-400: #ecc75a;
+
+  /* 全站字體統一加大一級：每個 text-* 級別都套用上一級的大小，
+     不需要改任何元件檔案，所有 text-xs/sm/base/lg... 自動套用新尺寸 */
+  --text-xs: 0.875rem;
+  --text-xs--line-height: calc(1.25 / 0.875);
+  --text-sm: 1rem;
+  --text-sm--line-height: calc(1.5 / 1);
+  --text-base: 1.125rem;
+  --text-base--line-height: calc(1.75 / 1.125);
+  --text-lg: 1.25rem;
+  --text-lg--line-height: calc(1.75 / 1.25);
+  --text-xl: 1.5rem;
+  --text-xl--line-height: calc(2 / 1.5);
+  --text-2xl: 1.875rem;
+  --text-2xl--line-height: calc(2.25 / 1.875);
+  --text-3xl: 2.25rem;
+  --text-3xl--line-height: calc(2.5 / 2.25);
+  --text-4xl: 3rem;
+  --text-4xl--line-height: 1;
+  --text-5xl: 3.75rem;
+  --text-5xl--line-height: 1;
+  --text-6xl: 4.5rem;
+  --text-6xl--line-height: 1;
+  --text-7xl: 6rem;
+  --text-7xl--line-height: 1;
+  --text-8xl: 8rem;
+  --text-8xl--line-height: 1;
+  --text-9xl: 9rem;
+  --text-9xl--line-height: 1;
+}
+
+@layer base {
+  body {
+    @apply bg-whisky-950 text-white font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl;
+  }
+
+  .amber-glow {
+    @apply shadow-[0_0_20px_rgba(212,175,55,0.2)];
+  }
+
+  .whisky-gradient {
+    @apply bg-gradient-to-br from-amber-500/20 via-transparent to-transparent;
+  }
+}
