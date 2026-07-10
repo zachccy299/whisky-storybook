@@ -29,7 +29,7 @@ export const PROCESS_OPTIONS = [
     color: 'from-amber-500/20 to-orange-500/20'
   },
   {
-    name: '烈酒製程全覽(釀酒師版)',
+    name: '烈酒製程基礎版',
     desc: '五大製程框架橫跨麥芽威士忌、穀物威士忌、白蘭地、蘭姆酒與琴酒',
     path: '/process/full',
     icon: Cog,
@@ -365,9 +365,9 @@ export const NAV_ITEMS = [
     path: '/process',
     icon: Cog,
     dropdown: [
-      { name: '系統分類', path: '/process/classification' },
+      { name: '烈酒分類地圖', path: '/process/classification' },
       { name: '麥芽威士忌(入門版)', path: '/process/whisky' },
-      { name: '烈酒製程全覽(釀酒師版)', path: '/process/full' },
+      { name: '烈酒製程基礎版', path: '/process/full' },
     ]
   },
   { name: '測驗一下', path: '/exam', icon: GraduationCap },

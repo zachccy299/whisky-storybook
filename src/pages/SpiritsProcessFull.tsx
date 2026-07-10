@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
@@ -207,17 +206,9 @@ const DATA: AllData = {
 // ── Component ───────────────────────────────────────────────────────────────
 
 export function SpiritsProcessFull() {
-  const [curSpirit, setCurSpirit] = useState<string | null>(null);
-  const [curStage, setCurStage]   = useState<string | null>(null);
-
-  const stageColor  = curStage  ? STAGE_COLORS[curStage] : "#888780";
-  const stageData   = curSpirit && curStage ? DATA[curSpirit]?.[curStage] : null;
-  const stageInfo   = STAGES.find((s) => s.id === curStage);
-  const spiritInfo  = SPIRITS.find((s) => s.id === curSpirit);
-
   return (
     <div className="min-h-screen pt-32 pb-20 px-4 bg-whisky-950">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-5xl mx-auto">
 
         {/* 頁首 */}
         <motion.div
@@ -244,7 +235,7 @@ export function SpiritsProcessFull() {
           </div>
 
           <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">
-            烈酒製程全覽(釀酒師版)
+            烈酒製程基礎版
           </h1>
           <div className="text-white/50 max-w-2xl mx-auto leading-relaxed space-y-4 text-left md:text-center">
             <p>以農業原料為出發點的釀酒系統架構：取糖、發酵、蒸餾、熟成和後處理。</p>
@@ -291,174 +282,8 @@ export function SpiritsProcessFull() {
           經過這五階段就來到架上，到達你的手中。
         </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="space-y-0"
-        >
-          {/* 酒種選擇 */}
-          <div className="flex flex-wrap gap-2 mb-5">
-            {SPIRITS.map((s) => (
-              <button
-                key={s.id}
-                onClick={() => setCurSpirit(s.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full border text-sm transition-all duration-200 ${
-                  curSpirit === s.id
-                    ? "border-white/40 bg-white/10 text-white font-medium"
-                    : "border-white/15 bg-white/[0.03] text-white/50 hover:bg-white/8 hover:text-white/80"
-                }`}
-              >
-                <span
-                  className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ background: s.color }}
-                />
-                {s.name}
-              </button>
-            ))}
-          </div>
-
-          {/* 五大製程欄 */}
-          <div className="flex border border-white/10 rounded-t-xl overflow-hidden">
-            {STAGES.map((st, i) => {
-              const active = curStage === st.id;
-              const c = STAGE_COLORS[st.id];
-              return (
-                <button
-                  key={st.id}
-                  onClick={() => setCurStage(st.id)}
-                  className={`flex-1 min-w-0 text-left px-3 pt-3 pb-0 border-r border-white/10 last:border-r-0 transition-colors duration-200 ${
-                    active ? "bg-white/8" : "bg-white/[0.02] hover:bg-white/5"
-                  }`}
-                >
-                  <div className="text-[11px] text-white/35 mb-1 font-mono">0{i + 1}</div>
-                  <div className="text-sm font-medium text-white leading-tight truncate">{st.name}</div>
-                  <div className="text-[11px] text-white/35 mt-1 leading-snug min-h-[28px] hidden sm:block">{st.en}</div>
-                  <div
-                    className="h-[3px] mt-2 transition-colors duration-200"
-                    style={{ background: active ? c : "transparent" }}
-                  />
-                </button>
-              );
-            })}
-          </div>
-
-          {/* 詳細內容 */}
-          {!curSpirit || !curStage ? (
-            <div className="border border-white/10 border-t-0 rounded-b-xl px-6 py-10 bg-white/[0.02]">
-              {curStage ? (
-                <div className="max-w-xl mx-auto text-left space-y-3">
-                  <p className="text-sm font-medium" style={{ color: stageColor }}>
-                    {stageInfo?.name} 階段的目標
-                  </p>
-                  <p className="text-sm text-white/55 leading-relaxed">{stageInfo?.goal}</p>
-                  <p className="text-white/30 text-xs pt-2">↑ 選擇酒種，看看各家在這個階段怎麼做</p>
-                </div>
-              ) : (
-                <p className="text-center text-white/30 text-sm">↑ 先選擇酒種，再點選上方製程階段</p>
-              )}
-            </div>
-          ) : !stageData ? null : (
-            <div className="border border-white/10 border-t-0 rounded-b-xl px-5 py-5 bg-white/[0.02] space-y-4">
-
-              {/* 標題列 */}
-              <div className="flex items-center gap-3 flex-wrap">
-                <span className="text-base font-medium" style={{ color: stageColor }}>
-                  {stageInfo?.name}
-                </span>
-                <span className="text-[12px] text-white/35 tracking-widest uppercase hidden sm:inline">
-                  {stageInfo?.en}
-                </span>
-                <span
-                  className="ml-auto text-[12px] px-3 py-1 rounded-full flex-shrink-0"
-                  style={{ background: `${spiritInfo?.color}20`, color: spiritInfo?.color }}
-                >
-                  {spiritInfo?.name}
-                </span>
-              </div>
-
-              {/* 說明 */}
-              <p className="text-sm text-white/55 leading-relaxed border-b border-white/10 pb-4">
-                {stageData.desc}
-              </p>
-
-              {/* 垂直時間軸 */}
-              <div className="flex flex-col">
-                {stageData.steps.map((step, i) => {
-                  const isLast = i === stageData.steps.length - 1;
-                  return (
-                    <div key={i} className="flex gap-0">
-                      <div className="w-7 flex-shrink-0 flex flex-col items-center">
-                        <div
-                          className="w-[10px] h-[10px] rounded-full border-2 flex-shrink-0 mt-[18px] bg-transparent"
-                          style={{ borderColor: stageColor }}
-                        />
-                        {!isLast && (
-                          <div className="w-[1.5px] flex-1 bg-white/10 min-h-3" />
-                        )}
-                      </div>
-                      <div className={`flex-1 ${isLast ? "pb-0" : "pb-1"}`}>
-                        {step.inputs && step.inputs.length > 0 && (
-                          <div className="flex flex-wrap gap-1.5 mt-[11px] mb-[-4px]">
-                            {step.inputs.map((inp) => (
-                              <span
-                                key={inp}
-                                className="text-[12px] px-2 py-0.5 rounded-full border"
-                                style={{
-                                  background: `${stageColor}18`,
-                                  color: stageColor,
-                                  borderColor: `${stageColor}35`,
-                                }}
-                              >
-                                {inp}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                        <div className="bg-white/[0.04] border border-white/10 rounded-lg px-3 py-2.5 mt-2">
-                          <div className="text-sm font-medium text-white mb-1">{step.name}</div>
-                          <div className="text-xs text-white/50 leading-relaxed">{step.desc}</div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* 注意事項 */}
-              {stageData.note && (
-                <div className="text-xs text-white/45 bg-white/[0.03] border border-white/10 rounded-lg px-3 py-2.5 leading-relaxed">
-                  📌 {stageData.note}
-                </div>
-              )}
-
-              {/* 其他酒種比較 */}
-              <div className="border-t border-white/10 pt-4 space-y-2.5">
-                <p className="text-[12px] text-white/30 mb-3">其他酒種在此階段的做法</p>
-                {SPIRITS.filter((s) => s.id !== curSpirit).map((s) => (
-                  <div key={s.id} className="flex items-start gap-2.5 text-xs">
-                    <span
-                      className="w-2 h-2 rounded-full flex-shrink-0 mt-[3px]"
-                      style={{ background: s.color }}
-                    />
-                    <span
-                      className="font-medium flex-shrink-0 w-20"
-                      style={{ color: s.color }}
-                    >
-                      {s.name}
-                    </span>
-                    <span className="text-white/45 leading-relaxed">
-                      {COMPARE[curStage]?.[s.id]}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </motion.div>
-
         <p className="text-center text-white/40 text-sm leading-relaxed max-w-2xl mx-auto mt-10">
-          接下來會介紹各種酒類在每一階段的常見手法，可以搭配{' '}
+          想更完整理解全球烈酒的分類邏輯，可以搭配{' '}
           <Link to="/process/classification" className="text-amber-500/80 hover:text-amber-400 underline underline-offset-2">
             烈酒分類地圖
           </Link>
