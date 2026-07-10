@@ -237,7 +237,7 @@ export function SpiritsProcessFull() {
           <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">
             烈酒製程基礎版
           </h1>
-          <div className="text-white/50 max-w-2xl mx-auto leading-relaxed space-y-4 text-left md:text-center">
+          <div className="text-white/50 leading-relaxed space-y-4 text-left md:text-center">
             <p>以農業原料為出發點的釀酒系統架構：取糖、發酵、蒸餾、熟成和後處理。</p>
             <p>
               每階段都有基礎邏輯，全球 99.99% 的烈酒都是按照這五階段生產。過去建廠設計、經營運作、產品開發和顧問教學時都會不停強調；
@@ -252,7 +252,7 @@ export function SpiritsProcessFull() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.05 }}
-          className="max-w-2xl mx-auto mb-12"
+          className="mb-12"
         >
           {STAGES.map((st, i) => {
             const isLast = i === STAGES.length - 1;
@@ -282,7 +282,7 @@ export function SpiritsProcessFull() {
           經過這五階段就來到架上，到達你的手中。
         </p>
 
-        <p className="text-center text-white/40 text-sm leading-relaxed max-w-2xl mx-auto mt-10">
+        <p className="text-center text-white/40 text-sm leading-relaxed mt-10">
           想更完整理解全球烈酒的分類邏輯，可以搭配{' '}
           <Link to="/process/classification" className="text-amber-500/80 hover:text-amber-400 underline underline-offset-2">
             烈酒分類地圖
