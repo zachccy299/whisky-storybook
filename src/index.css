@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -6,8 +6,8 @@
      Fraunces is a variable font with an optical-size axis (opsz 9..144) — the browser's default
      font-optical-sizing:auto automatically uses a text-appropriate cut at body sizes and a display
      cut at heading sizes from this one family, so long-form text (法規/測驗題目) stays readable. */
-  --font-sans: "Fraunces", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Fraunces", "Noto Sans TC", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces", "Noto Serif TC", ui-serif, Georgia, serif;
 
   /* Unified brand tokens (2026-07-09), shared with funnydistillery.com (Odoo) and the
      customization platform — see project_funnydistillery_website_integration memory.
