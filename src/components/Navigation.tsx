@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Compass, GraduationCap, Gavel, Cog, Home as HomeIcon, ChevronDown, Trophy, User, Hammer, LogOut, Flag, Facebook, Instagram, Twitter, MessageCircle, MessageSquare } from 'lucide-react';
+import { Compass, GraduationCap, Gavel, Cog, Home as HomeIcon, ChevronDown, Trophy, User, Hammer, LogOut, Flag, Facebook, Instagram, Twitter, MessageCircle, MessageSquare, ExternalLink } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '../lib/utils';
 import { useAuth } from '../lib/AuthContext';
@@ -61,24 +61,39 @@ export function Header() {
                   className="absolute left-0 top-full mt-3 w-64 bg-whisky-950 border border-amber-500/30 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-1.5 z-[100]"
                 >
                   <div className="px-3 py-2 text-[11px] font-black text-amber-500/50 uppercase tracking-widest border-b border-white/5 mb-1.5">快速導覽</div>
-                  {[...NAV_ITEMS, { name: '返回首頁', path: '/', icon: HomeIcon }].map((menuItem) => (
-                    <Link
-                      key={menuItem.path}
-                      to={menuItem.path}
-                      className={cn(
-                        "flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all active:scale-95",
-                        location.pathname === menuItem.path || (menuItem.path !== '/' && location.pathname.startsWith(menuItem.path))
-                          ? "text-amber-500 bg-amber-500/10 border border-amber-500/20"
-                          : "text-white/70 hover:text-amber-500 hover:bg-white/5"
-                      )}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center", location.pathname === menuItem.path ? "bg-amber-500/20" : "bg-white/5")}>
-                        <menuItem.icon className="w-4 h-4" />
-                      </div>
-                      {menuItem.name}
-                    </Link>
-                  ))}
+                  {[...NAV_ITEMS, { name: '返回首頁', path: '/', icon: HomeIcon }].map((menuItem: any) => {
+                    const itemClassName = cn(
+                      "flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all active:scale-95",
+                      location.pathname === menuItem.path || (menuItem.path !== '/' && location.pathname.startsWith(menuItem.path))
+                        ? "text-amber-500 bg-amber-500/10 border border-amber-500/20"
+                        : "text-white/70 hover:text-amber-500 hover:bg-white/5"
+                    );
+                    const iconWrapClassName = cn("w-8 h-8 rounded-lg flex items-center justify-center", location.pathname === menuItem.path ? "bg-amber-500/20" : "bg-white/5");
+                    return menuItem.external ? (
+                      <a key={menuItem.path} href={menuItem.path} target="_blank" rel="noopener noreferrer" className={itemClassName} onClick={() => setIsMobileMenuOpen(false)}>
+                        <div className={iconWrapClassName}>
+                          <menuItem.icon className="w-4 h-4" />
+                        </div>
+                        {menuItem.name}
+                      </a>
+                    ) : (
+                      <Link key={menuItem.path} to={menuItem.path} className={itemClassName} onClick={() => setIsMobileMenuOpen(false)}>
+                        <div className={iconWrapClassName}>
+                          <menuItem.icon className="w-4 h-4" />
+                        </div>
+                        {menuItem.name}
+                      </Link>
+                    );
+                  })}
+                  <a
+                    href="https://funnydistillery.com/"
+                    className="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all active:scale-95 text-white/70 hover:text-amber-500 hover:bg-white/5 border-t border-white/5 mt-1.5 pt-3"
+                  >
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-white/5">
+                      <ExternalLink className="w-4 h-4" />
+                    </div>
+                    回到官網
+                  </a>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -87,7 +102,8 @@ export function Header() {
 
         <nav className="hidden md:flex items-center gap-8">
           {NAV_ITEMS.map((item) => {
-            const isActive = location.pathname === item.path || (item.path !== '/' && location.pathname.startsWith(item.path));
+            const isActive = !item.external && (location.pathname === item.path || (item.path !== '/' && location.pathname.startsWith(item.path)));
+            const topLinkClassName = cn("flex items-center gap-1 text-sm font-medium transition-colors hover:text-amber-400 py-2", isActive ? "text-amber-500" : "text-white/60");
             return (
               <div
                 key={item.path}
@@ -95,16 +111,20 @@ export function Header() {
                 onMouseEnter={() => item.dropdown && handleMouseEnter(item.name)}
                 onMouseLeave={() => item.dropdown && handleMouseLeave()}
               >
-                <Link
-                  to={item.path}
-                  className={cn("flex items-center gap-1 text-sm font-medium transition-colors hover:text-amber-400 py-2", isActive ? "text-amber-500" : "text-white/60")}
-                >
-                  {item.name}
-                  {item.dropdown && <ChevronDown className={cn("w-3 h-3 transition-transform", activeDropdown === item.name && "rotate-180")} />}
-                  {isActive && (
-                    <motion.div layoutId="nav-underline" className="absolute bottom-0 left-0 right-0 h-0.5 bg-amber-500 shadow-[0_0_8px_rgba(212,175,55,0.6)]" />
-                  )}
-                </Link>
+                {item.external ? (
+                  <a href={item.path} target="_blank" rel="noopener noreferrer" className={topLinkClassName}>
+                    {item.name}
+                    {item.dropdown && <ChevronDown className={cn("w-3 h-3 transition-transform", activeDropdown === item.name && "rotate-180")} />}
+                  </a>
+                ) : (
+                  <Link to={item.path} className={topLinkClassName}>
+                    {item.name}
+                    {item.dropdown && <ChevronDown className={cn("w-3 h-3 transition-transform", activeDropdown === item.name && "rotate-180")} />}
+                    {isActive && (
+                      <motion.div layoutId="nav-underline" className="absolute bottom-0 left-0 right-0 h-0.5 bg-amber-500 shadow-[0_0_8px_rgba(212,175,55,0.6)]" />
+                    )}
+                  </Link>
+                )}
                 <AnimatePresence>
                   {activeDropdown === item.name && item.dropdown && (
                     <motion.div
@@ -114,9 +134,15 @@ export function Header() {
                       className="absolute top-full left-0 w-48 bg-whisky-900 border border-amber-500/20 rounded-xl overflow-hidden shadow-2xl p-1"
                     >
                       {item.dropdown.map((subItem) => (
-                        <Link key={subItem.name} to={subItem.path} className="block px-4 py-3 text-xs font-medium text-white/60 hover:text-amber-500 hover:bg-amber-500/10 rounded-lg transition-all" onClick={() => setActiveDropdown(null)}>
-                          {subItem.name}
-                        </Link>
+                        subItem.external ? (
+                          <a key={subItem.name} href={subItem.path} target="_blank" rel="noopener noreferrer" className="block px-4 py-3 text-xs font-medium text-white/60 hover:text-amber-500 hover:bg-amber-500/10 rounded-lg transition-all" onClick={() => setActiveDropdown(null)}>
+                            {subItem.name}
+                          </a>
+                        ) : (
+                          <Link key={subItem.name} to={subItem.path} className="block px-4 py-3 text-xs font-medium text-white/60 hover:text-amber-500 hover:bg-amber-500/10 rounded-lg transition-all" onClick={() => setActiveDropdown(null)}>
+                            {subItem.name}
+                          </Link>
+                        )
                       ))}
                     </motion.div>
                   )}
@@ -127,6 +153,13 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-4">
+          <a
+            href="https://funnydistillery.com/"
+            className="hidden md:flex items-center gap-1.5 text-xs font-bold text-white/50 hover:text-amber-500 transition-colors border border-white/10 hover:border-amber-500/30 rounded-full px-3 py-1.5"
+          >
+            <ExternalLink className="w-3 h-3" />
+            回到官網
+          </a>
           <div
             className="h-16 flex items-center relative"
             onMouseEnter={() => user && handleMouseEnter('profile')}

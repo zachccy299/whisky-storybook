@@ -1,3 +1,4 @@
+import type { LucideIcon } from 'lucide-react';
 import {
   Beaker,
   Cog,
@@ -5,9 +6,6 @@ import {
   Gavel,
   GraduationCap,
   Compass,
-  Trophy,
-  Hammer,
-  Flag,
   Grape,
   Palmtree,
   Flower2,
@@ -17,7 +15,22 @@ import {
   Leaf,
   Citrus,
   Sprout,
+  ExternalLink,
 } from 'lucide-react';
+
+export interface NavSubItem {
+  name: string;
+  path: string;
+  external?: boolean;
+}
+
+export interface NavItem {
+  name: string;
+  path: string;
+  icon: LucideIcon;
+  external?: boolean;
+  dropdown?: NavSubItem[];
+}
 
 export const PROCESS_OPTIONS = [
   {
@@ -29,7 +42,7 @@ export const PROCESS_OPTIONS = [
     color: 'from-amber-500/20 to-orange-500/20'
   },
   {
-    name: '烈酒製程全覽(釀酒師版)',
+    name: '烈酒製程基礎版',
     desc: '五大製程框架橫跨麥芽威士忌、穀物威士忌、白蘭地、蘭姆酒與琴酒',
     path: '/process/full',
     icon: Cog,
@@ -345,7 +358,18 @@ export const EXPLORE_SECTIONS = [
   }
 ];
 
-export const NAV_ITEMS = [
+export const NAV_ITEMS: NavItem[] = [
+  {
+    name: '有趣酒業',
+    path: 'https://funnydistillery.com/',
+    icon: ExternalLink,
+    external: true,
+    dropdown: [
+      { name: '有趣酒業官網', path: 'https://funnydistillery.com/', external: true },
+      { name: '客製平台', path: 'https://funnydistillery.zach-7cf.workers.dev/', external: true },
+      { name: '一日釀酒師', path: '/one-day-distiller' },
+    ]
+  },
   {
     name: '法規',
     path: '/regulations',
@@ -365,14 +389,28 @@ export const NAV_ITEMS = [
     path: '/process',
     icon: Cog,
     dropdown: [
-      { name: '系統分類', path: '/process/classification' },
+      { name: '烈酒分類地圖', path: '/process/classification' },
       { name: '麥芽威士忌(入門版)', path: '/process/whisky' },
-      { name: '烈酒製程全覽(釀酒師版)', path: '/process/full' },
+      { name: '烈酒製程基礎版', path: '/process/full' },
     ]
   },
-  { name: '測驗一下', path: '/exam', icon: GraduationCap },
-  { name: '排行榜', path: '/leaderboard', icon: Trophy },
-  { name: '釀酒師分享', path: '/blog/mouse', icon: Compass },
-  { name: '有趣一日釀酒師', path: '/one-day-distiller', icon: Hammer },
-  { name: '更新里程碑', path: '/milestone', icon: Flag },
+  {
+    name: '測驗一下',
+    path: '/exam',
+    icon: GraduationCap,
+    dropdown: [
+      { name: '小考試', path: '/exam/quiz?mode=random' },
+      { name: '錯題強化', path: '/exam/quiz?mode=mistakes' },
+      { name: '排行榜', path: '/leaderboard' },
+    ]
+  },
+  {
+    name: '釀酒師分享',
+    path: '/blog/mouse',
+    icon: Compass,
+    dropdown: [
+      { name: '釀酒師分享', path: '/blog/mouse' },
+      { name: '更新里程碑', path: '/milestone' },
+    ]
+  },
 ];

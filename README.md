@@ -104,6 +104,12 @@ npm run dev
 
 ---
 
+## 自動部署（GitHub Actions）
+
+推到 `main` 分支會自動 build + 部署到 Cloudflare Pages（`.github/workflows/deploy.yml`）。
+需要在 GitHub repo → Settings → Secrets and variables → Actions 設定：
+`CLOUDFLARE_API_TOKEN`、`CLOUDFLARE_ACCOUNT_ID`、`VITE_SUPABASE_URL`、`VITE_SUPABASE_ANON_KEY`（已設定完成，2026-07-10 驗證成功）。
+
 ## 技術架構
 
 - **前端**：React + TypeScript + Tailwind CSS
