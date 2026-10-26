@@ -86,7 +86,7 @@ export function Header() {
                     );
                   })}
                   <a
-                    href="https://funnydistillery.com/"
+                    href="https://funnydistillery.com/website/lang/zh_TW?r=/"
                     className="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all active:scale-95 text-white/70 hover:text-amber-500 hover:bg-white/5 border-t border-white/5 mt-1.5 pt-3"
                   >
                     <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-white/5">
@@ -159,7 +159,7 @@ export function Header() {
 
         <div className="flex items-center gap-4">
           <a
-            href="https://funnydistillery.com/"
+            href="https://funnydistillery.com/website/lang/zh_TW?r=/"
             className="hidden md:flex items-center gap-1.5 text-xs font-bold text-white/50 hover:text-amber-500 transition-colors border border-white/10 hover:border-amber-500/30 rounded-full px-3 py-1.5"
           >
             <ExternalLink className="w-3 h-3" />

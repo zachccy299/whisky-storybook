@@ -366,7 +366,7 @@ export const NAV_ITEMS: NavItem[] = [
     icon: ExternalLink,
     noLink: true,
     dropdown: [
-      { name: '有趣酒業官網', path: 'https://funnydistillery.com/', external: true },
+      { name: '有趣酒業官網', path: 'https://funnydistillery.com/website/lang/zh_TW?r=/', external: true },
       { name: '一日釀酒師', path: '/one-day-distiller' },
     ]
   },
