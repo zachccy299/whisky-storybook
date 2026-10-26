@@ -29,6 +29,7 @@ export interface NavItem {
   path: string;
   icon: LucideIcon;
   external?: boolean;
+  noLink?: boolean;
   dropdown?: NavSubItem[];
 }
 
@@ -338,9 +339,9 @@ export const EXPLORE_SECTIONS = [
     ]
   },
   {
-    title: '釀酒師分享',
-    desc: '釀酒師朋友們的故事、經歷與產業八卦',
-    path: '/blog/mouse',
+    title: '更新里程碑',
+    desc: '網站內容與功能的更新紀錄',
+    path: '/milestone',
     icon: Compass,
     color: 'from-yellow-200/20 to-yellow-500/20',
     subLinks: []
@@ -361,12 +362,11 @@ export const EXPLORE_SECTIONS = [
 export const NAV_ITEMS: NavItem[] = [
   {
     name: '有趣酒業',
-    path: 'https://funnydistillery.com/',
+    path: '#funnydistillery',
     icon: ExternalLink,
-    external: true,
+    noLink: true,
     dropdown: [
       { name: '有趣酒業官網', path: 'https://funnydistillery.com/', external: true },
-      { name: '客製平台', path: 'https://funnydistillery.zach-7cf.workers.dev/', external: true },
       { name: '一日釀酒師', path: '/one-day-distiller' },
     ]
   },
@@ -405,12 +405,8 @@ export const NAV_ITEMS: NavItem[] = [
     ]
   },
   {
-    name: '釀酒師分享',
-    path: '/blog/mouse',
+    name: '更新里程碑',
+    path: '/milestone',
     icon: Compass,
-    dropdown: [
-      { name: '釀酒師分享', path: '/blog/mouse' },
-      { name: '更新里程碑', path: '/milestone' },
-    ]
   },
 ];

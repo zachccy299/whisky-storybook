@@ -1,4 +1,4 @@
-import { Routes, Route, BrowserRouter, useLocation } from 'react-router-dom';
+import { Routes, Route, BrowserRouter, useLocation, Navigate } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { AuthProvider } from './lib/AuthContext';
 import { Header, Footer, AlcoholWarning } from './components/Navigation';
@@ -31,8 +31,6 @@ import { PlaceholderPage } from './pages/Placeholder';
 import { SpiritsProcessFull } from './pages/SpiritsProcessFull';
 import { SpiritsClassification } from './pages/SpiritsClassification';
 import { NotFound } from './pages/NotFound';
-import { MouseBlog } from './pages/MouseBlog';
-import { MousePost } from './pages/MousePost';
 import { AdminPosts } from './pages/AdminPosts';
 import { PostEditor } from './pages/PostEditor';
 import { AdminAuthors } from './pages/AdminAuthors';
@@ -73,15 +71,15 @@ export default function App() {
               <Route path="/process/menu" element={<ProcessMenu />} />
               <Route path="/process" element={<ProcessHome />} />
               <Route path="/process/*" element={<ProcessHome />} />
-              <Route path="/blog" element={<MouseBlog />} />
-              <Route path="/blog/mouse" element={<MouseBlog />} />
-              <Route path="/blog/mouse/:slug" element={<MousePost />} />
+              <Route path="/blog" element={<Navigate to="/milestone" replace />} />
+              <Route path="/blog/mouse" element={<Navigate to="/milestone" replace />} />
+              <Route path="/blog/mouse/:slug" element={<Navigate to="/milestone" replace />} />
               <Route path="/admin/posts" element={<AdminPosts />} />
               <Route path="/admin/posts/new" element={<PostEditor />} />
               <Route path="/admin/posts/edit/:id" element={<PostEditor />} />
               <Route path="/admin/authors" element={<AdminAuthors />} />
               <Route path="/one-day-distiller" element={<OneDayDistiller />} />
-              <Route path="/blog/*" element={<MouseBlog />} />
+              <Route path="/blog/*" element={<Navigate to="/milestone" replace />} />
               <Route path="/exam" element={<ExamHome />} />
               <Route path="/exam/quiz" element={<Quiz />} />
               <Route path="/exam/result" element={<Result />} />

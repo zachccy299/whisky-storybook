@@ -61,7 +61,7 @@ export function Header() {
                   className="absolute left-0 top-full mt-3 w-64 bg-whisky-950 border border-amber-500/30 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-1.5 z-[100]"
                 >
                   <div className="px-3 py-2 text-[11px] font-black text-amber-500/50 uppercase tracking-widest border-b border-white/5 mb-1.5">快速導覽</div>
-                  {[...NAV_ITEMS, { name: '返回首頁', path: '/', icon: HomeIcon }].map((menuItem: any) => {
+                  {[...NAV_ITEMS.flatMap((it: any) => it.noLink ? (it.dropdown || []).map((d: any) => ({ ...d, icon: it.icon })) : [it]), { name: '返回首頁', path: '/', icon: HomeIcon }].map((menuItem: any) => {
                     const itemClassName = cn(
                       "flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all active:scale-95",
                       location.pathname === menuItem.path || (menuItem.path !== '/' && location.pathname.startsWith(menuItem.path))
@@ -111,7 +111,12 @@ export function Header() {
                 onMouseEnter={() => item.dropdown && handleMouseEnter(item.name)}
                 onMouseLeave={() => item.dropdown && handleMouseLeave()}
               >
-                {item.external ? (
+                {item.noLink ? (
+                  <button type="button" className={topLinkClassName} aria-haspopup="true" aria-expanded={activeDropdown === item.name} onClick={() => setActiveDropdown(activeDropdown === item.name ? null : item.name)}>
+                    {item.name}
+                    {item.dropdown && <ChevronDown className={cn("w-3 h-3 transition-transform", activeDropdown === item.name && "rotate-180")} />}
+                  </button>
+                ) : item.external ? (
                   <a href={item.path} target="_blank" rel="noopener noreferrer" className={topLinkClassName}>
                     {item.name}
                     {item.dropdown && <ChevronDown className={cn("w-3 h-3 transition-transform", activeDropdown === item.name && "rotate-180")} />}
